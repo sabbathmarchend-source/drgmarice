@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>drg. Marice Herlina — Praktek Dokter Gigi Keluarga, Tebet</title>
+<meta name="description" content="Praktek dokter gigi keluarga di Kebon Baru, Tebet, Jakarta Selatan. Perawatan gigi yang tenang, teliti, dan ramah untuk seluruh keluarga." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #f4f0e8;          /* warm off-white, kertas */
+    --bg-2: #ebe5d8;        /* sedikit lebih gelap */
+    --ink: #1f2a26;         /* hijau-hitam, bukan hitam pekat */
+    --ink-soft: #4a544f;
+    --sage: #6b8478;        /* sage utama */
+    --sage-deep: #3f5048;
+    --sage-light: #c5d0c5;
+    --clay: #c97b5a;        /* terracotta hangat, aksen */
+    --line: #d4cdbd;
+    --shadow: 0 1px 2px rgba(31,42,38,.04), 0 8px 30px rgba(31,42,38,.06);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter Tight', sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  /* paper grain overlay */
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(107,132,120,.04) 0, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(201,123,90,.03) 0, transparent 50%);
+    pointer-events:none;
+    z-index:1;
+  }
+  body::after{
+    content:"";
+    position:fixed; inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+    opacity:.08;
+    mix-blend-mode:multiply;
+    pointer-events:none;
+    z-index:2;
+  }
+  .container{max-width:1240px; margin:0 auto; padding:0 28px; position:relative; z-index:3}
+
+  h1,h2,h3,h4{font-family:'Fraunces', serif; font-weight:400; letter-spacing:-.01em; line-height:1.1}
+
+  a{color:inherit; text-decoration:none}
+  button{font-family:inherit; cursor:pointer; border:none; background:none}
+
+  /* ===== NAV ===== */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    padding:18px 0;
+    backdrop-filter:blur(10px);
+    background:rgba(244,240,232,.75);
+    border-bottom:1px solid transparent;
+    transition:border-color .3s, padding .3s;
+  }
+  nav.scrolled{border-bottom-color:var(--line); padding:14px 0}
+  .nav-inner{display:flex; justify-content:space-between; align-items:center}
+  .logo{
+    font-family:'Fraunces', serif;
+    font-size:20px;
+    font-style:italic;
+    font-weight:400;
+    letter-spacing:-.02em;
+  }
+  .logo span{font-style:normal; color:var(--sage)}
+  .nav-links{display:flex; gap:36px; align-items:center}
+  .nav-links a{
+    font-size:14px;
+    color:var(--ink-soft);
+    transition:color .2s;
+    position:relative;
+  }
+  .nav-links a:hover{color:var(--ink)}
+  .nav-cta{
+    padding:10px 20px;
+    background:var(--ink);
+    color:var(--bg);
+    border-radius:100px;
+    font-size:13px;
+    transition:background .2s, transform .2s;
+  }
+  .nav-cta:hover{background:var(--sage-deep); transform:translateY(-1px)}
+  .menu-toggle{display:none; font-size:24px}
+
+  @media (max-width:860px){
+    .nav-links{
+      position:fixed; top:60px; left:0; right:0;
+      flex-direction:column; gap:0;
+      background:var(--bg);
+      padding:0;
+      max-height:0; overflow:hidden;
+      transition:max-height .3s, padding .3s;
+      border-bottom:1px solid var(--line);
+    }
+    .nav-links.open{max-height:500px; padding:20px 28px 30px}
+    .nav-links a{padding:14px 0; border-bottom:1px solid var(--line); width:100%}
+    .nav-links a:last-child{border-bottom:none}
+    .nav-cta{align-self:flex-start; margin-top:8px}
+    .menu-toggle{display:block}
+  }
+
+  /* ===== HERO ===== */
+  .hero{
+    min-height:100vh;
+    padding:140px 0 80px;
+    display:flex; align-items:center;
+    position:relative;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.2fr 1fr;
+    gap:60px;
+    align-items:center;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:10px;
+    font-size:13px;
+    color:var(--sage-deep);
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    margin-bottom:32px;
+    opacity:0; animation:rise .8s .2s forwards;
+  }
+  .eyebrow::before{
+    content:""; width:32px; height:1px; background:var(--sage);
+  }
+  .hero h1{
+    font-size:clamp(48px, 7vw, 92px);
+    line-height:.98;
+    margin-bottom:28px;
+    opacity:0; animation:rise .9s .35s forwards;
+  }
+  .hero h1 em{
+    font-style:italic;
+    color:var(--sage-deep);
+    font-weight:300;
+  }
+  .hero-lead{
+    font-size:18px;
+    color:var(--ink-soft);
+    max-width:480px;
+    margin-bottom:40px;
+    opacity:0; animation:rise .9s .5s forwards;
+  }
+  .hero-ctas{
+    display:flex; gap:16px; flex-wrap:wrap;
+    opacity:0; animation:rise .9s .65s forwards;
+  }
+  .btn-primary, .btn-secondary{
+    padding:16px 28px;
+    border-radius:100px;
+    font-size:15px;
+    font-weight:500;
+    display:inline-flex; align-items:center; gap:10px;
+    transition:all .25s;
+  }
+  .btn-primary{background:var(--ink); color:var(--bg)}
+  .btn-primary:hover{background:var(--sage-deep); transform:translateY(-2px); box-shadow:var(--shadow)}
+  .btn-secondary{
+    background:transparent;
+    color:var(--ink);
+    border:1px solid var(--ink);
+  }
+  .btn-secondary:hover{background:var(--ink); color:var(--bg)}
+
+  .hero-visual{
+    position:relative;
+    aspect-ratio:4/5;
+    opacity:0; animation:rise 1s .55s forwards;
+  }
+  .hero-card{
+    position:absolute;
+    background:var(--sage);
+    border-radius:200px 200px 12px 12px;
+    inset:0;
+    overflow:hidden;
+  }
+  /* placeholder "foto" abstrak */
+  .hero-card::before{
+    content:"";
+    position:absolute; inset:0;
+    background:
+      radial-gradient(ellipse at 50% 30%, rgba(255,255,255,.25), transparent 60%),
+      linear-gradient(180deg, transparent 60%, rgba(63,80,72,.4));
+  }
+  .hero-card::after{
+    content:"foto drg. Marice";
+    position:absolute;
+    bottom:24px; left:24px;
+    color:rgba(255,255,255,.5);
+    font-size:11px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+  }
+  .floating-tag{
+    position:absolute;
+    background:var(--bg);
+    padding:16px 20px;
+    border-radius:14px;
+    box-shadow:var(--shadow);
+    font-size:13px;
+    display:flex; align-items:center; gap:12px;
+  }
+  .floating-tag.t1{
+    top:8%; right:-12%;
+    transform:rotate(3deg);
+    animation:float 6s ease-in-out infinite;
+  }
+  .floating-tag.t2{
+    bottom:18%; left:-15%;
+    transform:rotate(-2deg);
+    animation:float 7s ease-in-out infinite .5s;
+  }
+  .dot{
+    width:8px; height:8px; border-radius:50%;
+    background:var(--clay);
+    flex-shrink:0;
+  }
+  .floating-tag.t1 .dot{background:var(--sage)}
+
+  @keyframes rise{
+    from{opacity:0; transform:translateY(20px)}
+    to{opacity:1; transform:translateY(0)}
+  }
+  @keyframes float{
+    0%,100%{transform:translateY(0) rotate(3deg)}
+    50%{transform:translateY(-12px) rotate(3deg)}
+  }
+  .floating-tag.t2{animation-name:float2}
+  @keyframes float2{
+    0%,100%{transform:translateY(0) rotate(-2deg)}
+    50%{transform:translateY(-12px) rotate(-2deg)}
+  }
+
+  @media (max-width:860px){
+    .hero{padding:120px 0 60px}
+    .hero-grid{grid-template-columns:1fr; gap:50px}
+    .hero-visual{max-width:340px; margin:0 auto}
+    .floating-tag.t1{right:-5%}
+    .floating-tag.t2{left:-5%}
+  }
+
+  /* ===== SECTION GENERIC ===== */
+  section{padding:120px 0; position:relative}
+  .section-label{
+    font-size:13px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--sage-deep);
+    display:flex; align-items:center; gap:14px;
+    margin-bottom:28px;
+  }
+  .section-label::before{
+    content:""; width:24px; height:1px; background:var(--sage);
+  }
+  .section-title{
+    font-size:clamp(36px, 5vw, 58px);
+    margin-bottom:24px;
+    max-width:780px;
+  }
+  .section-title em{font-style:italic; color:var(--sage-deep); font-weight:300}
+  .section-lead{
+    font-size:18px;
+    color:var(--ink-soft);
+    max-width:620px;
+    margin-bottom:60px;
+  }
+
+  /* ===== TENTANG ===== */
+  .about{background:var(--bg-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line)}
+  .about-grid{
+    display:grid;
+    grid-template-columns:1fr 1.3fr;
+    gap:80px;
+    align-items:start;
+  }
+  .about-photo{
+    aspect-ratio:3/4;
+    background:var(--sage-deep);
+    border-radius:8px;
+    position:relative;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+  }
+  .about-photo::before{
+    content:"";
+    position:absolute; inset:0;
+    background:
+      radial-gradient(ellipse at 50% 35%, rgba(255,255,255,.15), transparent 65%),
+      linear-gradient(180deg, transparent 50%, rgba(31,42,38,.5));
+  }
+  .about-photo::after{
+    content:"foto profesional dokter";
+    position:absolute;
+    bottom:20px; left:20px;
+    color:rgba(255,255,255,.5);
+    font-size:11px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+  }
+  .about-content h2{margin-bottom:32px}
+  .about-content p{
+    color:var(--ink-soft);
+    margin-bottom:22px;
+    font-size:17px;
+    line-height:1.7;
+  }
+  .credentials{
+    margin-top:48px;
+    border-top:1px solid var(--line);
+    padding-top:32px;
+  }
+  .credentials h4{
+    font-size:14px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--sage-deep);
+    margin-bottom:18px;
+    font-family:'Inter Tight', sans-serif;
+    font-weight:500;
+  }
+  .credentials ul{list-style:none; display:grid; gap:12px}
+  .credentials li{
+    display:flex; gap:14px;
+    font-size:15px;
+    color:var(--ink-soft);
+  }
+  .credentials li::before{
+    content:"—";
+    color:var(--clay);
+    flex-shrink:0;
+  }
+
+  @media (max-width:860px){
+    .about-grid{grid-template-columns:1fr; gap:50px}
+  }
+
+  /* ===== LAYANAN ===== */
+  .services-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+    gap:24px;
+  }
+  .service-card{
+    padding:36px 32px;
+    background:var(--bg-2);
+    border-radius:14px;
+    border:1px solid var(--line);
+    transition:all .3s;
+    position:relative;
+    overflow:hidden;
+  }
+  .service-card:hover{
+    transform:translateY(-4px);
+    box-shadow:var(--shadow);
+    border-color:var(--sage);
+  }
+  .service-number{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:300;
+    font-size:14px;
+    color:var(--clay);
+    margin-bottom:24px;
+  }
+  .service-card h3{
+    font-size:24px;
+    margin-bottom:14px;
+  }
+  .service-card p{
+    font-size:14px;
+    color:var(--ink-soft);
+    margin-bottom:24px;
+    line-height:1.6;
+  }
+  .service-price{
+    font-size:13px;
+    color:var(--sage-deep);
+    letter-spacing:.04em;
+    padding-top:18px;
+    border-top:1px solid var(--line);
+  }
+  .service-price strong{
+    font-weight:500;
+    color:var(--ink);
+    font-family:'Fraunces', serif;
+    font-size:18px;
+  }
+  .price-disclaimer{
+    margin-top:36px;
+    padding:24px;
+    background:var(--sage-light);
+    border-radius:12px;
+    font-size:14px;
+    color:var(--sage-deep);
+    line-height:1.6;
+  }
+  .price-disclaimer strong{font-weight:500; color:var(--ink)}
+
+  /* ===== GALERI ===== */
+  .gallery{background:var(--bg-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line)}
+  .gallery-grid{
+    display:grid;
+    grid-template-columns:repeat(12, 1fr);
+    grid-auto-rows:120px;
+    gap:14px;
+  }
+  .g{
+    background:var(--sage);
+    border-radius:8px;
+    position:relative;
+    overflow:hidden;
+    transition:transform .4s;
+  }
+  .g:hover{transform:scale(1.02)}
+  .g::before{
+    content:"";
+    position:absolute; inset:0;
+    background:
+      radial-gradient(ellipse at var(--x,50%) var(--y,40%), rgba(255,255,255,.25), transparent 60%),
+      linear-gradient(180deg, transparent 60%, rgba(31,42,38,.25));
+  }
+  .g::after{
+    content:attr(data-label);
+    position:absolute;
+    bottom:14px; left:16px;
+    color:rgba(255,255,255,.7);
+    font-size:11px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+  }
+  .g1{grid-column:1/7; grid-row:1/4; --x:30%; background:var(--sage-deep)}
+  .g2{grid-column:7/10; grid-row:1/3; --x:70%; background:#a8b5a3}
+  .g3{grid-column:10/13; grid-row:1/3; background:var(--clay); --x:60%}
+  .g4{grid-column:7/13; grid-row:3/5; --x:40%; background:#8da195}
+  .g5{grid-column:1/5; grid-row:4/6; --x:50%; background:#5e7268}
+  .g6{grid-column:5/13; grid-row:5/7; --x:60%; background:var(--sage)}
+  .g7{grid-column:1/5; grid-row:6/8; background:#b58a6e; --x:40%}
+
+  @media (max-width:860px){
+    .gallery-grid{grid-template-columns:repeat(2,1fr); grid-auto-rows:160px}
+    .g{grid-column:auto !important; grid-row:auto !important}
+  }
+
+  /* ===== FAQ ===== */
+  .faq-list{display:grid; gap:0; max-width:880px; margin:0 auto}
+  .faq-item{
+    border-top:1px solid var(--line);
+    padding:32px 0;
+    cursor:pointer;
+  }
+  .faq-item:last-child{border-bottom:1px solid var(--line)}
+  .faq-q{
+    display:flex; justify-content:space-between; align-items:flex-start; gap:30px;
+    font-family:'Fraunces', serif;
+    font-size:22px;
+    font-weight:400;
+  }
+  .faq-toggle{
+    flex-shrink:0;
+    width:32px; height:32px;
+    border-radius:50%;
+    border:1px solid var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    font-size:16px;
+    transition:transform .3s, background .3s;
+  }
+  .faq-item.open .faq-toggle{
+    transform:rotate(45deg);
+    background:var(--ink);
+    color:var(--bg);
+  }
+  .faq-a{
+    max-height:0; overflow:hidden;
+    color:var(--ink-soft);
+    font-size:16px;
+    line-height:1.7;
+    transition:max-height .4s, padding .4s;
+  }
+  .faq-item.open .faq-a{
+    max-height:300px;
+    padding-top:18px;
+  }
+
+  /* ===== TESTIMONI ===== */
+  .testimonials{background:var(--bg-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line)}
+  .testi-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));
+    gap:24px;
+  }
+  .testi-card{
+    background:var(--bg);
+    padding:36px 32px;
+    border-radius:14px;
+    border:1px solid var(--line);
+    position:relative;
+  }
+  .testi-card::before{
+    content:"\201C";
+    font-family:'Fraunces', serif;
+    font-size:80px;
+    color:var(--sage-light);
+    position:absolute;
+    top:0px; left:20px;
+    line-height:1;
+  }
+  .testi-text{
+    position:relative;
+    font-family:'Fraunces', serif;
+    font-size:19px;
+    line-height:1.5;
+    font-weight:300;
+    margin-bottom:28px;
+    padding-top:20px;
+  }
+  .testi-author{
+    display:flex; align-items:center; gap:14px;
+    padding-top:20px;
+    border-top:1px solid var(--line);
+  }
+  .testi-avatar{
+    width:42px; height:42px;
+    border-radius:50%;
+    background:var(--sage);
+    flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+    color:var(--bg);
+    font-family:'Fraunces', serif;
+    font-size:16px;
+  }
+  .testi-author-info p:first-child{
+    font-weight:500; font-size:14px;
+  }
+  .testi-author-info p:last-child{
+    font-size:13px; color:var(--ink-soft);
+  }
+
+  /* ===== BOOKING ===== */
+  .booking-wrap{
+    display:grid;
+    grid-template-columns:1fr 1.2fr;
+    gap:80px;
+    align-items:start;
+  }
+  .booking-info h2{margin-bottom:24px}
+  .booking-info p{
+    color:var(--ink-soft);
+    font-size:17px;
+    margin-bottom:32px;
+    line-height:1.7;
+  }
+  .info-list{display:grid; gap:24px; margin-top:40px}
+  .info-item{
+    display:flex; gap:18px;
+    padding-bottom:24px;
+    border-bottom:1px solid var(--line);
+  }
+  .info-icon{
+    width:42px; height:42px;
+    flex-shrink:0;
+    background:var(--sage-light);
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    color:var(--sage-deep);
+    font-size:20px;
+  }
+  .info-item h4{
+    font-family:'Inter Tight', sans-serif;
+    font-size:14px;
+    font-weight:500;
+    margin-bottom:4px;
+  }
+  .info-item p{
+    font-size:14px;
+    color:var(--ink-soft);
+    margin-bottom:0;
+  }
+
+  .booking-form{
+    background:var(--bg-2);
+    padding:44px 40px;
+    border-radius:18px;
+    border:1px solid var(--line);
+  }
+  .booking-form h3{
+    font-size:28px;
+    margin-bottom:8px;
+  }
+  .booking-form > p{
+    color:var(--ink-soft);
+    font-size:14px;
+    margin-bottom:30px;
+  }
+  .form-row{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+  .form-group{margin-bottom:18px}
+  .form-group label{
+    display:block;
+    font-size:12px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-bottom:8px;
+  }
+  .form-group input, .form-group select, .form-group textarea{
+    width:100%;
+    padding:13px 16px;
+    border:1px solid var(--line);
+    background:var(--bg);
+    border-radius:8px;
+    font-family:inherit;
+    font-size:15px;
+    color:var(--ink);
+    transition:border-color .2s;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus{
+    outline:none;
+    border-color:var(--sage-deep);
+  }
+  .form-group textarea{resize:vertical; min-height:90px}
+  .submit-btn{
+    width:100%;
+    padding:18px;
+    background:var(--ink);
+    color:var(--bg);
+    border-radius:10px;
+    font-size:15px;
+    font-weight:500;
+    transition:background .2s;
+    margin-top:8px;
+  }
+  .submit-btn:hover{background:var(--sage-deep)}
+  .form-note{
+    text-align:center;
+    font-size:12px;
+    color:var(--ink-soft);
+    margin-top:16px;
+  }
+
+  @media (max-width:860px){
+    .booking-wrap{grid-template-columns:1fr; gap:50px}
+    .form-row{grid-template-columns:1fr}
+    .booking-form{padding:32px 24px}
+  }
+
+  /* ===== LOKASI ===== */
+  .location{background:var(--bg-2); border-top:1px solid var(--line)}
+  .location-grid{
+    display:grid;
+    grid-template-columns:1fr 1.5fr;
+    gap:60px;
+    align-items:center;
+  }
+  .map-frame{
+    aspect-ratio:4/3;
+    border-radius:14px;
+    overflow:hidden;
+    border:1px solid var(--line);
+    box-shadow:var(--shadow);
+  }
+  .map-frame iframe{width:100%; height:100%; border:0; filter:saturate(.8) contrast(.95)}
+  .location-info h2{margin-bottom:24px}
+  .location-info > p{
+    color:var(--ink-soft);
+    font-size:17px;
+    line-height:1.7;
+    margin-bottom:30px;
+  }
+  .hours{
+    background:var(--bg);
+    padding:28px;
+    border-radius:12px;
+    border:1px solid var(--line);
+    margin-top:32px;
+  }
+  .hours h4{
+    font-family:'Inter Tight',sans-serif;
+    font-size:13px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--sage-deep);
+    font-weight:500;
+    margin-bottom:18px;
+  }
+  .hours-row{
+    display:flex; justify-content:space-between;
+    padding:10px 0;
+    font-size:15px;
+    border-bottom:1px solid var(--line);
+  }
+  .hours-row:last-child{border-bottom:none}
+  .hours-row span:last-child{color:var(--ink-soft)}
+  .hours-row.closed span:last-child{color:var(--clay); font-style:italic}
+
+  @media (max-width:860px){
+    .location-grid{grid-template-columns:1fr; gap:40px}
+  }
+
+  /* ===== FOOTER ===== */
+  footer{
+    background:var(--ink);
+    color:var(--bg);
+    padding:80px 0 40px;
+    position:relative;
+  }
+  .footer-grid{
+    display:grid;
+    grid-template-columns:1.5fr 1fr 1fr 1fr;
+    gap:50px;
+    padding-bottom:60px;
+    border-bottom:1px solid rgba(244,240,232,.15);
+  }
+  .footer-brand .logo{color:var(--bg); font-size:24px}
+  .footer-brand .logo span{color:var(--sage-light)}
+  .footer-brand p{
+    color:rgba(244,240,232,.6);
+    font-size:14px;
+    line-height:1.7;
+    margin-top:20px;
+    max-width:300px;
+  }
+  .footer-col h5{
+    font-family:'Inter Tight', sans-serif;
+    font-size:12px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--sage-light);
+    font-weight:500;
+    margin-bottom:20px;
+  }
+  .footer-col ul{list-style:none; display:grid; gap:12px}
+  .footer-col a{
+    font-size:14px;
+    color:rgba(244,240,232,.7);
+    transition:color .2s;
+  }
+  .footer-col a:hover{color:var(--bg)}
+  .footer-bottom{
+    padding-top:30px;
+    display:flex; justify-content:space-between; align-items:center;
+    font-size:13px;
+    color:rgba(244,240,232,.5);
+    flex-wrap:wrap; gap:14px;
+  }
+
+  @media (max-width:860px){
+    .footer-grid{grid-template-columns:1fr 1fr; gap:40px}
+    .footer-brand{grid-column:1/-1}
+  }
+  @media (max-width:520px){
+    .footer-grid{grid-template-columns:1fr}
+  }
+
+  /* WA float */
+  .wa-float{
+    position:fixed;
+    bottom:24px; right:24px;
+    width:60px; height:60px;
+    background:#25D366;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    color:white;
+    box-shadow:0 8px 24px rgba(37,211,102,.4);
+    z-index:50;
+    transition:transform .2s;
+  }
+  .wa-float:hover{transform:scale(1.1)}
+
+  /* reveal on scroll */
+  .reveal{
+    opacity:0;
+    transform:translateY(30px);
+    transition:opacity .8s, transform .8s;
+  }
+  .reveal.in{opacity:1; transform:translateY(0)}
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="container nav-inner">
+    <a href="#" class="logo">drg. Marice <span>Herlina</span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="#tentang">Tentang</a>
+      <a href="#layanan">Layanan</a>
+      <a href="#galeri">Galeri</a>
+      <a href="#faq">FAQ</a>
+      <a href="#lokasi">Lokasi</a>
+      <a href="#booking" class="nav-cta">Buat Janji</a>
+    </div>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu">☰</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">Praktek Dokter Gigi Keluarga</div>
+        <h1>Perawatan gigi<br/>yang <em>tenang</em>,<br/>teliti, dan tepercaya.</h1>
+        <p class="hero-lead">Klinik pribadi drg. Marice Herlina di Kebon Baru, Tebet. Tempat seluruh keluarga merawat senyumnya — dari anak-anak hingga lansia.</p>
+        <div class="hero-ctas">
+          <a href="#booking" class="btn-primary">Buat Janji Konsultasi →</a>
+          <a href="#tentang" class="btn-secondary">Kenal lebih dekat</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-card"></div>
+        <div class="floating-tag t1"><span class="dot"></span> Ramah anak & lansia</div>
+        <div class="floating-tag t2"><span class="dot"></span> Konsultasi gratis</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- TENTANG -->
+<section class="about" id="tentang">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-photo reveal"></div>
+      <div class="about-content reveal">
+        <div class="section-label">Tentang Dokter</div>
+        <h2 class="section-title">Mendampingi setiap senyum dengan <em>kesabaran</em> dan ketelitian.</h2>
+        <p>Bagi banyak orang — terutama anak-anak — kunjungan ke dokter gigi tidak selalu mudah. Karena itu, saya membangun praktek ini sebagai tempat yang tenang, tidak terburu-buru, dan benar-benar mendengarkan keluhan pasien sebelum memulai tindakan apa pun.</p>
+        <p>Setiap kasus saya tangani secara personal. Tidak ada antrean panjang yang menekan, tidak ada pemeriksaan yang tergesa. Hanya konsultasi yang jujur, penjelasan yang mudah dipahami, dan perawatan yang Anda butuhkan — tidak lebih, tidak kurang.</p>
+        <div class="credentials">
+          <h4>Pendidikan & Praktek</h4>
+          <ul>
+            <li>Dokter Gigi, Fakultas Kedokteran Gigi [Universitas]</li>
+            <li>Anggota Persatuan Dokter Gigi Indonesia (PDGI)</li>
+            <li>Sertifikasi pelatihan endodontik & estetika gigi</li>
+            <li>Pengalaman praktek lebih dari [X] tahun</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LAYANAN -->
+<section id="layanan">
+  <div class="container">
+    <div class="section-label reveal">Layanan</div>
+    <h2 class="section-title reveal">Perawatan menyeluruh untuk <em>seluruh keluarga.</em></h2>
+    <p class="section-lead reveal">Dari pemeriksaan rutin hingga tindakan yang lebih kompleks, semuanya ditangani dengan standar yang sama: teliti, transparan, dan mengutamakan kenyamanan pasien.</p>
+
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-number">— 01</div>
+        <h3>Pemeriksaan & Konsultasi</h3>
+        <p>Diagnosis awal, edukasi kondisi gigi, dan rencana perawatan yang disesuaikan untuk kebutuhan Anda.</p>
+        <div class="service-price">Mulai dari <strong>Rp 100.000</strong></div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-number">— 02</div>
+        <h3>Scaling & Pembersihan Karang</h3>
+        <p>Membersihkan plak dan karang gigi dengan ultrasonik untuk gusi yang sehat dan napas yang segar.</p>
+        <div class="service-price">Mulai dari <strong>Rp 350.000</strong></div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-number">— 03</div>
+        <h3>Penambalan Gigi</h3>
+        <p>Tambal estetik sewarna gigi untuk gigi berlubang, dengan material berkualitas yang tahan lama.</p>
+        <div class="service-price">Mulai dari <strong>Rp 250.000</strong></div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-number">— 04</div>
+        <h3>Pencabutan Gigi</h3>
+        <p>Pencabutan gigi rutin dan gigi geraham bungsu dengan teknik minim trauma dan pemulihan cepat.</p>
+        <div class="service-price">Mulai dari <strong>Rp 300.000</strong></div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-number">— 05</div>
+        <h3>Perawatan Saluran Akar</h3>
+        <p>Menyelamatkan gigi yang infeksinya sudah dalam, tanpa harus dicabut. Dilakukan bertahap dan hati-hati.</p>
+        <div class="service-price">Mulai dari <strong>Rp 1.500.000</strong></div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-number">— 06</div>
+        <h3>Gigi Tiruan</h3>
+        <p>Pembuatan gigi tiruan sebagian atau lengkap, lepasan maupun cekat, dengan kecocokan presisi.</p>
+        <div class="service-price">Mulai dari <strong>Rp 800.000</strong></div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-number">— 07</div>
+        <h3>Pemutihan Gigi (Bleaching)</h3>
+        <p>Memutihkan gigi secara aman dengan teknik in-office, hasil terlihat setelah satu kunjungan.</p>
+        <div class="service-price">Mulai dari <strong>Rp 1.200.000</strong></div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-number">— 08</div>
+        <h3>Perawatan Gigi Anak</h3>
+        <p>Pendekatan khusus dan sabar untuk anak-anak: fluoride, fissure sealant, dan pencegahan dini.</p>
+        <div class="service-price">Mulai dari <strong>Rp 200.000</strong></div>
+      </div>
+    </div>
+
+    <div class="price-disclaimer reveal">
+      <strong>Catatan:</strong> Harga di atas adalah estimasi awal dan dapat berbeda sesuai tingkat kasus serta material yang digunakan. <strong>Konsultasi awal gratis</strong> untuk mendapatkan estimasi biaya yang lebih akurat setelah pemeriksaan langsung.
+    </div>
+  </div>
+</section>
+
+<!-- GALERI -->
+<section class="gallery" id="galeri">
+  <div class="container">
+    <div class="section-label reveal">Klinik</div>
+    <h2 class="section-title reveal">Ruang yang dirancang untuk <em>terasa tenang.</em></h2>
+    <p class="section-lead reveal">Bersih, hangat, dan tidak berbau "rumah sakit". Setiap sudut dirancang agar Anda — dan anak-anak — bisa duduk dengan tenang.</p>
+
+    <div class="gallery-grid reveal">
+      <div class="g g1" data-label="Ruang tunggu"></div>
+      <div class="g g2" data-label="Resepsionis"></div>
+      <div class="g g3" data-label="Area anak"></div>
+      <div class="g g4" data-label="Ruang perawatan"></div>
+      <div class="g g5" data-label="Sterilisasi"></div>
+      <div class="g g6" data-label="Eksterior klinik"></div>
+      <div class="g g7" data-label="Detail interior"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container">
+    <div class="section-label reveal">Pertanyaan Umum</div>
+    <h2 class="section-title reveal">Hal-hal yang <em>sering ditanyakan.</em></h2>
+    <p class="section-lead reveal">Beberapa pertanyaan yang paling sering muncul dari pasien — terutama yang baru pertama kali berkonsultasi.</p>
+
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <div class="faq-q">
+          <span>Seberapa sering sebaiknya saya melakukan pemeriksaan rutin?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a">Untuk sebagian besar orang, kunjungan rutin disarankan setiap 6 bulan sekali. Ini mencakup pemeriksaan menyeluruh dan pembersihan karang gigi (scaling). Pasien dengan kondisi tertentu — misalnya yang memakai kawat gigi atau memiliki gusi sensitif — mungkin dianjurkan lebih sering.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">
+          <span>Pada usia berapa anak sebaiknya pertama kali ke dokter gigi?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a">Idealnya saat gigi pertama tumbuh atau paling lambat di usia 1 tahun. Kunjungan awal biasanya bersifat pengenalan — tidak ada tindakan, hanya membiasakan anak dengan suasana klinik. Pendekatan ini terbukti mengurangi kecemasan anak di kunjungan berikutnya.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">
+          <span>Apakah scaling membuat gigi menjadi tipis atau renggang?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a">Tidak. Yang dibersihkan adalah karang gigi (kalkulus) yang menempel di permukaan, bukan struktur gigi itu sendiri. Kesan "renggang" yang kadang dirasakan setelah scaling muncul karena karang yang menumpuk sebelumnya menutupi celah alami antar gigi — bukan karena gigi jadi tipis.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">
+          <span>Saya takut ke dokter gigi. Apa yang bisa dilakukan?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a">Kecemasan terhadap dokter gigi sangat umum, dan tidak perlu disembunyikan. Sampaikan saja di awal — kami akan menyesuaikan ritme, menjelaskan setiap langkah sebelum dilakukan, dan berhenti kapan pun Anda merasa tidak nyaman. Banyak pasien yang awalnya sangat cemas kini bisa duduk dengan tenang.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">
+          <span>Apakah klinik menerima BPJS atau asuransi?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a">Saat ini klinik melayani pasien umum (mandiri). Untuk klaim asuransi tertentu, kami dapat menyediakan surat keterangan dan kuitansi sesuai standar yang biasanya dibutuhkan asuransi untuk proses reimbursement. Silakan tanyakan saat konsultasi.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">
+          <span>Berapa lama biasanya satu kunjungan?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a">Konsultasi awal sekitar 30 menit. Tindakan seperti tambal atau scaling biasanya 45–60 menit. Tindakan kompleks (perawatan saluran akar, pencabutan geraham bungsu) bisa memerlukan 1–2 jam atau beberapa kunjungan. Kami selalu memberi estimasi waktu sebelum tindakan dimulai.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONI -->
+<section class="testimonials">
+  <div class="container">
+    <div class="section-label reveal">Dari Pasien</div>
+    <h2 class="section-title reveal">Cerita mereka yang <em>kembali lagi.</em></h2>
+
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <p class="testi-text">Anak saya yang biasanya takut ke dokter gigi, sekarang malah minta diantar sendiri. drg. Marice sabar sekali menjelaskan ke anak kecil.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">L</div>
+          <div class="testi-author-info">
+            <p>Ibu Lestari</p>
+            <p>Pasien sejak 2021</p>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <p class="testi-text">Yang saya suka, dokter selalu jelaskan dulu apa yang akan dilakukan dan kira-kira biayanya berapa. Tidak ada yang tiba-tiba.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">A</div>
+          <div class="testi-author-info">
+            <p>Bapak Adrian</p>
+            <p>Pasien sejak 2019</p>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <p class="testi-text">Kliniknya tenang, tidak ramai, dan rasanya seperti dirawat dengan personal. Sudah jadi langganan keluarga kami.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">S</div>
+          <div class="testi-author-info">
+            <p>Keluarga Suryanto</p>
+            <p>Pasien sejak 2020</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section id="booking">
+  <div class="container">
+    <div class="booking-wrap">
+      <div class="booking-info reveal">
+        <div class="section-label">Buat Janji</div>
+        <h2 class="section-title">Kapan Anda ingin <em>berkunjung?</em></h2>
+        <p>Isi formulir di samping, dan kami akan menghubungi Anda kembali via WhatsApp untuk konfirmasi waktu yang paling sesuai. Konsultasi pertama gratis.</p>
+
+        <div class="info-list">
+          <div class="info-item">
+            <div class="info-icon">⏱</div>
+            <div>
+              <h4>Respon Cepat</h4>
+              <p>Konfirmasi janji dalam 1×24 jam (jam kerja).</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">✦</div>
+            <div>
+              <h4>Konsultasi Awal Gratis</h4>
+              <p>Pemeriksaan singkat tanpa biaya untuk kunjungan pertama.</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">♡</div>
+            <div>
+              <h4>Tanpa Tekanan</h4>
+              <p>Anda bebas memutuskan setelah konsultasi, tanpa kewajiban.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <form class="booking-form reveal" id="bookingForm">
+        <h3>Formulir Janji Temu</h3>
+        <p>Data Anda tersimpan aman dan hanya digunakan untuk keperluan janji temu.</p>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nama Lengkap</label>
+            <input type="text" name="nama" required placeholder="Nama Anda" />
+          </div>
+          <div class="form-group">
+            <label>No. WhatsApp</label>
+            <input type="tel" name="wa" required placeholder="08xxxxxxxxxx" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Usia</label>
+            <input type="number" name="usia" required placeholder="Contoh: 32" min="1" max="120" />
+          </div>
+          <div class="form-group">
+            <label>Pasien</label>
+            <select name="tipe_pasien" required>
+              <option value="">Pilih...</option>
+              <option>Pasien Baru</option>
+              <option>Pasien Lama</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Jenis Perawatan</label>
+          <select name="layanan" required>
+            <option value="">Pilih layanan...</option>
+            <option>Pemeriksaan & Konsultasi</option>
+            <option>Scaling / Pembersihan Karang</option>
+            <option>Penambalan Gigi</option>
+            <option>Pencabutan Gigi</option>
+            <option>Perawatan Saluran Akar</option>
+            <option>Gigi Tiruan</option>
+            <option>Pemutihan Gigi</option>
+            <option>Perawatan Gigi Anak</option>
+            <option>Lainnya / Belum yakin</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Tanggal Diinginkan</label>
+            <input type="date" name="tanggal" required />
+          </div>
+          <div class="form-group">
+            <label>Waktu Preferensi</label>
+            <select name="waktu" required>
+              <option value="">Pilih waktu...</option>
+              <option>Pagi (09.00–12.00)</option>
+              <option>Siang (12.00–15.00)</option>
+              <option>Sore (15.00–18.00)</option>
+              <option>Malam (18.00–20.00)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Keluhan / Catatan (opsional)</label>
+          <textarea name="catatan" placeholder="Ceritakan singkat keluhan atau pertanyaan Anda..."></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submitBtn">Kirim Permintaan Janji →</button>
+        <p class="form-note" id="formNote">Data akan tersimpan & kami hubungi via WhatsApp untuk konfirmasi.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- LOKASI -->
+<section class="location" id="lokasi">
+  <div class="container">
+    <div class="location-grid">
+      <div class="location-info reveal">
+        <div class="section-label">Lokasi & Jam</div>
+        <h2 class="section-title">Mudah dijangkau di <em>Kebon Baru, Tebet.</em></h2>
+        <p>Praktek berada di area Kebon Baru, Tebet, Jakarta Selatan. Mudah diakses dari Stasiun Tebet, Kalibata, maupun Cikoko, dengan tempat parkir tersedia.</p>
+
+        <div class="hours">
+          <h4>Jam Praktek</h4>
+          <div class="hours-row"><span>Senin – Jumat</span><span>17.00 – 21.00</span></div>
+          <div class="hours-row"><span>Sabtu</span><span>09.00 – 14.00</span></div>
+          <div class="hours-row closed"><span>Minggu & Libur</span><span>Tutup</span></div>
+        </div>
+      </div>
+      <div class="map-frame reveal">
+        <iframe
+          src="https://www.google.com/maps?q=Kebon+Baru,+Tebet,+Jakarta+Selatan&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo">drg. Marice <span>Herlina</span></a>
+        <p>Praktek dokter gigi keluarga di Kebon Baru, Tebet, Jakarta Selatan. Perawatan yang tenang, teliti, dan tepercaya.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Navigasi</h5>
+        <ul>
+          <li><a href="#tentang">Tentang</a></li>
+          <li><a href="#layanan">Layanan</a></li>
+          <li><a href="#galeri">Galeri</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#lokasi">Lokasi</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Kontak</h5>
+        <ul>
+          <li><a href="https://wa.me/6281xxxxxxxxx">WhatsApp</a></li>
+          <li><a href="mailto:halo@example.com">halo@example.com</a></li>
+          <li><a href="#lokasi">Petunjuk Arah</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Ikuti</h5>
+        <ul>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">TikTok</a></li>
+          <li><a href="#">Google Maps</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 drg. Marice Herlina. Praktek pribadi.</p>
+      <p>Kebon Baru, Tebet, Jakarta Selatan</p>
+    </div>
+  </div>
+</footer>
+
+<!-- WA Float -->
+<a href="https://wa.me/6281xxxxxxxxx" class="wa-float" aria-label="Hubungi WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+</a>
+
+<script>
+  // Nav scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // Mobile menu
+  const toggle = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a =>
+    a.addEventListener('click', () => navLinks.classList.remove('open'))
+  );
+
+  // FAQ
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+
+  // Reveal on scroll
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // =============================================
+  // KONFIGURASI — ganti nilai di bawah ini
+  // =============================================
+  const CONFIG = {
+    WA_NUMBER:       '6281xxxxxxxxx',   // nomor WA klinik (format: 62xxx tanpa +)
+    AIRTABLE_TOKEN:  'YOUR_AIRTABLE_TOKEN',  // Personal Access Token dari airtable.com/create/tokens
+    AIRTABLE_BASE:   'YOUR_BASE_ID',    // dari URL: airtable.com/YOUR_BASE_ID/...
+    AIRTABLE_TABLE:  'Janji Temu',      // nama tabel di Airtable (buat persis sama)
+  };
+  // =============================================
+
+  // Format tanggal Indonesia
+  function formatTanggal(str) {
+    if (!str) return '-';
+    const d = new Date(str);
+    return d.toLocaleDateString('id-ID', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+  }
+
+  // Kirim data ke Airtable
+  async function kirimKeAirtable(data) {
+    const res = await fetch(`https://api.airtable.com/v0/${CONFIG.AIRTABLE_BASE}/${encodeURIComponent(CONFIG.AIRTABLE_TABLE)}`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${CONFIG.AIRTABLE_TOKEN}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        fields: {
+          'Nama Pasien':      data.nama,
+          'No. WhatsApp':     data.wa,
+          'Usia':             parseInt(data.usia),
+          'Tipe Pasien':      data.tipe_pasien,
+          'Layanan':          data.layanan,
+          'Tanggal Diinginkan': data.tanggal,
+          'Waktu Preferensi': data.waktu,
+          'Keluhan / Catatan': data.catatan || '',
+          'Status':           'Menunggu Konfirmasi',
+          'Tgl Submit':       new Date().toISOString(),
+        }
+      })
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err?.error?.message || 'Airtable error');
+    }
+    return res.json();
+  }
+
+  // Buka WhatsApp notifikasi ke klinik
+  function bukaWhatsApp(data) {
+    const msg =
+`[Janji Baru] drg. Marice Herlina
+
+Nama: ${data.nama}
+Usia: ${data.usia} tahun
+No. WA: ${data.wa}
+Tipe: ${data.tipe_pasien}
+Layanan: ${data.layanan}
+Tanggal: ${formatTanggal(data.tanggal)}
+Waktu: ${data.waktu}
+Catatan: ${data.catatan || '-'}
+
+Data sudah tersimpan di Airtable.`;
+    window.open(`https://wa.me/${CONFIG.WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+  }
+
+  // Tampilkan state sukses di form
+  function tampilkanSukses(nama) {
+    const form = document.getElementById('bookingForm');
+    form.innerHTML = `
+      <div style="text-align:center; padding:40px 20px">
+        <div style="width:64px;height:64px;background:var(--sage-light);border-radius:50%;
+          display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:28px">✓</div>
+        <h3 style="margin-bottom:12px">Permintaan Terkirim!</h3>
+        <p style="color:var(--ink-soft);font-size:15px;line-height:1.7;margin-bottom:28px">
+          Halo <strong>${nama}</strong>, data janji Anda sudah kami terima dan tersimpan.
+          drg. Marice akan menghubungi Anda via WhatsApp untuk konfirmasi jadwal.
+        </p>
+        <p style="font-size:13px;color:var(--ink-soft)">
+          Ada pertanyaan mendesak? Hubungi langsung via
+          <a href="https://wa.me/${CONFIG.WA_NUMBER}" style="color:var(--sage-deep);text-decoration:underline">WhatsApp</a>.
+        </p>
+      </div>`;
+  }
+
+  // Handler submit
+  document.getElementById('bookingForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const f = e.target;
+    const btn  = document.getElementById('submitBtn');
+    const note = document.getElementById('formNote');
+
+    const data = {
+      nama:        f.nama.value.trim(),
+      wa:          f.wa.value.trim(),
+      usia:        f.usia.value.trim(),
+      tipe_pasien: f.tipe_pasien.value,
+      layanan:     f.layanan.value,
+      tanggal:     f.tanggal.value,
+      waktu:       f.waktu.value,
+      catatan:     f.catatan.value.trim(),
+    };
+
+    // Loading state
+    btn.disabled = true;
+    btn.textContent = 'Menyimpan data...';
+    note.textContent = 'Mohon tunggu sebentar.';
+
+    const airtableReady =
+      CONFIG.AIRTABLE_TOKEN !== 'YOUR_AIRTABLE_TOKEN' &&
+      CONFIG.AIRTABLE_BASE  !== 'YOUR_BASE_ID';
+
+    if (airtableReady) {
+      try {
+        await kirimKeAirtable(data);
+        bukaWhatsApp(data);
+        tampilkanSukses(data.nama);
+      } catch (err) {
+        console.error('Airtable error:', err);
+        // Fallback: tetap buka WA walau Airtable gagal
+        bukaWhatsApp(data);
+        btn.disabled = false;
+        btn.textContent = 'Kirim Permintaan Janji →';
+        note.textContent = '⚠ Data gagal tersimpan di sistem. Pesan WA tetap terkirim — hubungi admin.';
+      }
+    } else {
+      // Mode placeholder: langsung WA saja
+      bukaWhatsApp(data);
+      tampilkanSukses(data.nama);
+    }
+  });
+</script>
+
+</body>
+</html>
